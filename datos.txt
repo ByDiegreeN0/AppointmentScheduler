@@ -1,0 +1,7 @@
+DATOS FORM INSERTAR CITAS
+
+- ident
+- name
+- edad 
+- tel
+- email
