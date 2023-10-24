@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2023 a las 00:54:30
+-- Tiempo de generación: 25-10-2023 a las 01:53:11
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,31 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `administrador`
---
-
-CREATE TABLE `administrador` (
-  `admin_id` int(11) NOT NULL,
-  `admin_ident` int(11) DEFAULT NULL,
-  `admin_name` varchar(100) DEFAULT NULL,
-  `admin_correo` varchar(300) DEFAULT NULL,
-  `admin_password` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoria_citas`
---
-
-CREATE TABLE `categoria_citas` (
-  `categoria_id` int(11) NOT NULL,
-  `categoria_name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `citas`
 --
 
@@ -58,52 +33,47 @@ CREATE TABLE `citas` (
   `cliente_name` varchar(100) DEFAULT NULL,
   `cliente_edad` int(11) DEFAULT NULL,
   `cliente_tel` varchar(20) DEFAULT NULL,
-  `cliente_correo` varchar(300) DEFAULT NULL
+  `cliente_correo` varchar(300) DEFAULT NULL,
+  `categoria_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`cliente_id`, `cliente_ident`, `cliente_name`, `cliente_edad`, `cliente_tel`, `cliente_correo`, `categoria_id`) VALUES
+(1, 11451313, 'Zapato Re-gud 2', 13, '313131313', 'ad@g.com', NULL);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `administrador`
---
-ALTER TABLE `administrador`
-  ADD PRIMARY KEY (`admin_id`);
-
---
--- Indices de la tabla `categoria_citas`
---
-ALTER TABLE `categoria_citas`
-  ADD PRIMARY KEY (`categoria_id`);
-
---
 -- Indices de la tabla `citas`
 --
 ALTER TABLE `citas`
-  ADD PRIMARY KEY (`cliente_id`);
+  ADD PRIMARY KEY (`cliente_id`),
+  ADD KEY `categoria_id` (`categoria_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `administrador`
---
-ALTER TABLE `administrador`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `categoria_citas`
---
-ALTER TABLE `categoria_citas`
-  MODIFY `categoria_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `citas`
+--
+ALTER TABLE `citas`
+  ADD CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria_citas` (`categoria_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
