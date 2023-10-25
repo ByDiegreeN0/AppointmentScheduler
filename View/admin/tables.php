@@ -1,5 +1,5 @@
 <?php
-require_once('../Model/Models/Citas.php');
+require_once('../../Model/Models/Citas.php');
 
 
 $citas = new Citas;
@@ -62,6 +62,7 @@ $citas = $citas->GetCitas();
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Clientes</span></a>
             </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
@@ -172,7 +173,7 @@ $citas = $citas->GetCitas();
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="../Controller/CRUD/create-category.php">
+                                    <form method="post" action="../../Controller/CRUD/create-category.php">
                                         <div class="form-group">
                                             <label for="inputAddress">Nombre de la Categoria</label>
                                             <input type="text" class="form-control" id="inputAddress" placeholder="Ingrese nombre de la categoria" name="category" required>
@@ -198,7 +199,7 @@ $citas = $citas->GetCitas();
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="../Controller/CRUD/create-cita.php">
+                                    <form method="POST" action="../../Controller/CRUD/create-cita.php">
                                         <div class="form-group">
                                             <label for="inputAddress">TI/CC</label>
                                             <input type="number" class="form-control" id="inputAddress" placeholder="Identificacion del cliente" name="ident" required>

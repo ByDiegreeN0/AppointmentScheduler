@@ -12,12 +12,12 @@ $email = $_POST['email'];
 
 if($cita->CreateCita($ident, $name, $edad, $tel, $email)){
     echo "<script>
-    window.location.href = '../../View/tables.php';
+    window.location.href = '../../View/admin/tables.php';
     </script>";
 }else {
     echo "<script>
     alert('Un error ha ocurrido, intentalo otra vez')
-    window.location.href = '../../View/tables.php';
+    window.location.href = '../../View/admin/tables.php';
     </script>";
 }
 
