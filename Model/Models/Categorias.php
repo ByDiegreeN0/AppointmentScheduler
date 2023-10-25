@@ -33,7 +33,7 @@ class Categorias extends Connection {
     }
 
     public function GetCategoria(){
-        $sql = "SELECT * FROM citas";
+        $sql = "SELECT * FROM categoria_citas";
         $row = $this->Connect->query($sql);
 
     if($row){

@@ -12,16 +12,13 @@ $categoria = $_POST['categoria'];
 
 if($cita->CreateCita($name, $email, $date, $tel, $categoria)){
     echo "<script>
-    window.location.href = '../../View/admin/tables.php';
+    window.location.href = '../../View/web/index.php';
+    alert('Tu cita fue registrada')
     </script>";
 }else {
     echo "<script>
     alert('Un error ha ocurrido, intentalo otra vez')
-    window.location.href = '../../View/admin/tables.php';
+    window.location.href = '../../View/web/index.php';
     </script>";
 }
 
-
-
-
-?>

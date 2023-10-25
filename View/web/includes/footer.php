@@ -34,7 +34,7 @@ include('includes/dbconnection.php');
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">Bogotá | Colombia</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+57 3214867673</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">diegoalejandrogarcia140902@gmail.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text"> diegoalejandrogarcia140902@gmail.com</span></a></li>
 	              </ul>
 	            </div>
             </div>

@@ -1,7 +1,6 @@
 <?php
 
-require_once("../../Model/Models/Categorias.php");
-include('includes/dbconnection.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

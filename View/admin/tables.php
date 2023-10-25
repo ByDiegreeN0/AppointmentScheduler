@@ -1,9 +1,25 @@
 <?php
+
 require_once('../../Model/Models/Citas.php');
+require_once('../../Model/Models/Categorias.php');
+
 
 
 $citas = new Citas;
-$citas = $citas->GetCitas();
+$citas = $citas->GetCitasInnerJoin();
+
+$categorias = new categorias;
+$categorias = $categorias->GetCategoria();
+
+session_start();
+
+$Session = $_SESSION['administrador'];
+
+if($Session == null || $Session == ""){
+    header("LOCATION: login.html");
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,18 +74,13 @@ $citas = $citas->GetCitas();
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Clientes</span></a>
             </li>
 
 
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-calendar"></i>
-                    <span>Calendario</span></a>
-            </li>
-
+           
 
 
             <!-- Divider -->
@@ -154,7 +165,7 @@ $citas = $citas->GetCitas();
 
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">
-                        Insertar Cita
+                        Agendar Cita
                     </button>
 
                     <!-- Button trigger modal -->
@@ -200,29 +211,28 @@ $citas = $citas->GetCitas();
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" action="../../Controller/CRUD/create-cita.php">
-                                        <div class="form-group">
-                                            <label for="inputAddress">TI/CC</label>
-                                            <input type="number" class="form-control" id="inputAddress" placeholder="Identificacion del cliente" name="ident" required>
+
+
+                                        <div class="form-row">
+
+                                            <label for="inputEmail4">Nombre</label>
+                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre" name="name" required>
+
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="inputEmail4">Nombre</label>
-                                                <input type="text" class="form-control" id="inputEmail4" placeholder="Nombre" name="name" required>
+                                                <label for="inputAddress2">Email</label>
+                                                <input type="email" class="form-control" id="inputAddress2" placeholder="example@example.com" name="email" required>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="inputPassword4">Edad</label>
-                                                <input type="number" class="form-control" id="inputPassword4" placeholder="Edad" name="edad" required>
+                                            <div class="form-group col-md-6"><label for="inputAddress">Telefono</label>
+                                                <input type="number" class="form-control" id="inputAddress" placeholder="+57 300 000 00 00" name="tel" required>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress">Telefono</label>
-                                            <input type="number" class="form-control" id="inputAddress" placeholder="+57 300 000 00 00" name="tel" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputAddress2">Email</label>
-                                            <input type="email" class="form-control" id="inputAddress2" placeholder="example@example.com" name="email" required>
+
+
+
+
                                         </div>
 
                                         <div class="form-row">
@@ -235,10 +245,12 @@ $citas = $citas->GetCitas();
                                                 <label for="inputPassword4">Categoria</label>
                                                 <select name="categoria" id="" class="form-control" required>
                                                     <option value="" selected>selected</option>
-                                                    <option value="">Categoria 1</option>
-                                                    <option value="">Categoria 1</option>
-                                                    <option value="">Categoria 1</option>
+                                                    <?php if ($categorias) {
+                                                        foreach ($categorias as $categoria) { ?>
+                                                            <option value="<?php echo $categoria['categoria_id'] ?>"><?php echo $categoria['categoria_name'];  ?></option>
 
+                                                    <?php }
+                                                    } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -264,11 +276,10 @@ $citas = $citas->GetCitas();
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Identificacion TI/CC</th>
                                             <th>Nombre</th>
-                                            <th>Edad</th>
-                                            <th>Telefono</th>
                                             <th>Correo</th>
+                                            <th>Fecha</th>
+                                            <th>Telefono</th>
                                             <th>categoria</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
@@ -277,12 +288,11 @@ $citas = $citas->GetCitas();
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Identificacion TI/CC</th>
                                             <th>Nombre</th>
-                                            <th>Edad</th>
+                                            <th>Correo</th>
+                                            <th>Fecha</th>
                                             <th>Telefono</th>
-                                            <th>Correo</th>
-                                            <th>Correo</th>
+                                            <th>categoria</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -291,17 +301,17 @@ $citas = $citas->GetCitas();
                                         <?php if ($citas) {
                                             foreach ($citas as $cita) {  ?>
                                                 <tr>
-                                                   
-                                                    <td><?php echo $cita['cliente_ident']; ?></td>
+
+
                                                     <td><?php echo $cita['cliente_name']; ?></td>
-                                                    <td><?php echo $cita['cliente_edad']; ?></td>
-                                                    <td><?php echo $cita['cliente_tel']; ?></td>
                                                     <td><?php echo $cita['cliente_correo']; ?></td>
-                                                    <td><?php echo $cita['cliente_categoria']; ?></td>
+                                                    <td><?php echo $cita['cliente_fecha']; ?></td>
+                                                    <td><?php echo $cita['cliente_tel']; ?></td>
+                                                    <td><?php echo $cita['categoria_name']; ?></td>
 
 
-                                                    <td><a href=""><button class="btn btn-warning">Editar</button></td>
-                                                    <td><a href=""><button class="btn btn-danger">Eliminar</button></td>
+                                                    <td><a href="edit.php?id=<?php echo $cita['cliente_id']; ?>"><button class="btn btn-warning">Editar</button></td>
+                                                    <td><a href="../../Controller/CRUD/delete-cita.php?id=<?php echo $cita['cliente_id']; ?>"><button class="btn btn-danger">Eliminar</button></td>
 
                                                 </tr>
                                         <?php }
@@ -353,7 +363,7 @@ $citas = $citas->GetCitas();
                 <div class="modal-body">Presiona el boton de "Logout" Para salir.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../../Controller/config/admin-logout.php">Logout</a>
                 </div>
             </div>
         </div>
